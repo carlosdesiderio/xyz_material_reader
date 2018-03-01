@@ -70,7 +70,7 @@ public class ArticleDetailFragment extends Fragment implements
 
         stringUtils = new StringUtils();
 
-        if (getArguments().containsKey(ARG_ITEM_ID)) {
+        if (getArguments() != null && getArguments().containsKey(ARG_ITEM_ID)) {
             mItemId = getArguments().getLong(ARG_ITEM_ID);
         }
     }
@@ -89,6 +89,7 @@ public class ArticleDetailFragment extends Fragment implements
         // we do this in onActivityCreated.
         getLoaderManager().initLoader(0, null, this);
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
