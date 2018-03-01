@@ -2,8 +2,6 @@
 
     <declare-styleable name="ArticleTitleBehavior">
         <attr name="collapsedTitleMarginStart" format="dimension" />
-        <attr name="expandedTitleMarginEnd" format="dimension" />
-        <attr name="toolBarHeight" format="dimension" />
     </declare-styleable>
 
 </resources>

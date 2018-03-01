@@ -60,16 +60,14 @@
 
     <!-- TODO move dimens to resources -->
     <LinearLayout
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@color/colorHeadingBackground"
         android:orientation="vertical"
         android:paddingTop="@dimen/article_title_external_top_padding"
-        app:collapsedTitleMarginStart="80dp"
-        app:expandedTitleMarginStart="24dp"
-        app:toolBarHeight="?attr/actionBarSize">
+        app:collapsedTitleMarginStart="40dp"
+        app:layout_behavior="com.example.xyzreader.ui.ArticleTitleBehaviour">
 
         <TextView
             android:id="@+id/article_detail_big_title"

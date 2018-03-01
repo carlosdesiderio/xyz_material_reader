@@ -1,7 +1,7 @@
 <resources>
 
     <!-- font sizes -->
-    <dimen name="article_detail_toolbar_text_size">24sp</dimen>
+    <dimen name="article_detail_toolbar_text_size">20sp</dimen>
     <dimen name="article_detail_big_title_text_size">28sp</dimen>
     <dimen name="card_primary_text_size">16sp</dimen>
 
@@ -22,7 +22,7 @@
     <!-- details view -->
     <dimen name="article_detail_appbar_height">300dp</dimen>
     <dimen name="fab_elevation">2dp</dimen>
-    <dimen name="article_bottom_padding">24dp</dimen>
+    <dimen name="article_bottom_padding">4dp</dimen>
     <dimen name="fab_margin">24dp</dimen>
 
     <!-- article list -->
