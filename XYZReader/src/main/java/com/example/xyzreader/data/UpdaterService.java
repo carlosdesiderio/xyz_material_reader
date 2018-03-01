@@ -21,7 +21,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class UpdaterService extends IntentService {
-    private static final String TAG = "UpdaterService";
+    private static final String TAG = UpdaterService.class.getSimpleName();
+    private static final String SERVICE_NAME = TAG;
 
     public static final String BROADCAST_ACTION_STATE_CHANGE
             = "com.example.xyzreader.intent.action.STATE_CHANGE";
@@ -29,13 +30,14 @@ public class UpdaterService extends IntentService {
             = "com.example.xyzreader.intent.extra.REFRESHING";
 
     public UpdaterService() {
-        super(TAG);
+        super(SERVICE_NAME);
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Time time = new Time();
+        Log.d(TAG, "rapa - onHandleIntent: ");
 
+        // TODO: 22/02/2018 add login to report connectivity issues
         ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo ni = cm.getActiveNetworkInfo();
         if (ni == null || !ni.isConnected()) {
@@ -43,8 +45,10 @@ public class UpdaterService extends IntentService {
             return;
         }
 
-        sendStickyBroadcast(
-                new Intent(BROADCAST_ACTION_STATE_CHANGE).putExtra(EXTRA_REFRESHING, true));
+        Log.d(TAG, "rapa - onHandleIntent: sending true");
+
+        sendRefreshingDataStatusBroadcast(true);
+
 
         // Don't even inspect the intent, we only do one thing, and that's fetch content.
         ArrayList<ContentProviderOperation> cpo = new ArrayList<ContentProviderOperation>();
@@ -80,7 +84,14 @@ public class UpdaterService extends IntentService {
             Log.e(TAG, "Error updating content.", e);
         }
 
-        sendStickyBroadcast(
-                new Intent(BROADCAST_ACTION_STATE_CHANGE).putExtra(EXTRA_REFRESHING, false));
+        Log.d(TAG, "rapa - onHandleIntent: sending false");
+        sendRefreshingDataStatusBroadcast(false);
+    }
+
+    private void sendRefreshingDataStatusBroadcast(boolean isRefresing) {
+        Intent refreshingIntent = new Intent(BROADCAST_ACTION_STATE_CHANGE);
+        refreshingIntent.putExtra(EXTRA_REFRESHING, isRefresing);
+        Log.d(TAG, "rapa - sendRefreshingDataStatusBroadcast: sending broadcast");
+        sendBroadcast(refreshingIntent);
     }
 }

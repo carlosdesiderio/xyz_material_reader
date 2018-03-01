@@ -1,11 +1,36 @@
 <resources>
-    <!-- detail -->
-    <dimen name="detail_title_text_size">32sp</dimen>
-    <dimen name="detail_body_text_size">22sp</dimen>
-    <item name="detail_body_line_spacing_multiplier" format="float" type="fraction">1.25</item>
 
+    <!-- font sizes -->
+    <dimen name="article_detail_toolbar_text_size">24sp</dimen>
+    <dimen name="article_detail_big_title_text_size">28sp</dimen>
+    <dimen name="card_primary_text_size">16sp</dimen>
+
+    <!-- general -->
+    <dimen name="padding_horizontal_default">16dp</dimen>
+    <dimen name="orange_ruler_height">2dp</dimen>
+
+    <!-- master view -->
+    <dimen name="article_list_app_bar_height">112dp</dimen>
+    <integer name="list_column_count">2</integer>
+    <!-- card -->
+    <dimen name="card_external_top_bottom_padding">24dp</dimen>
+    <dimen name="card_content_areas_between_padding">8dp</dimen>
+
+    <dimen name="card_margin">4dp</dimen>
+
+
+    <!-- details view -->
+    <dimen name="article_detail_appbar_height">300dp</dimen>
     <dimen name="fab_elevation">2dp</dimen>
-    <dimen name="fab_press_translation_z">6dp</dimen>
+    <dimen name="article_bottom_padding">24dp</dimen>
     <dimen name="fab_margin">24dp</dimen>
+
+    <!-- article list -->
+    <!-- these margins are complimenting the 4dp card margin so to
+         generate a vertical margin of 16dp and a horizontal margin of 8dp-->
+    <dimen name="list_horizontal_margin">4dp</dimen>
+    <dimen name="list_vertical_margin">12dp</dimen>
+    <dimen name="article_title_external_top_padding">8dp</dimen>
+    <dimen name="article_title_content_areas_between_padding">12dp</dimen>
 
 </resources>

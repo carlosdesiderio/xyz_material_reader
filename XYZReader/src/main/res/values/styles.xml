@@ -17,12 +17,66 @@
 
 <resources>
 
-    <style name="Theme.Bacon" parent="@style/Theme.AppCompat.Light.NoActionBar">
-
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:colorPrimary">@color/colourPrimary</item>
+        <item name="android:colorPrimaryDark">@color/colourPrimaryDark</item>
+        <item name="android:colorAccent">@color/colourAccent</item>
     </style>
 
-    <style name="Theme.Bacon.Detail">
-        <item name="android:statusBarColor">@android:color/transparent</item>
+    <style name="TextAppearance.Article.Toolbar.Title" parent="TextAppearance.Article.Title" >
+        <item name="android:textSize">@dimen/article_detail_toolbar_text_size</item>
     </style>
+
+    <!-- used to generate title slide anim into tab bar effect -->
+    <style name="TextAppearance.Article.Toolbar.Title.Transparent"
+        parent="TextAppearance.Article.Title" >
+        <item name="android:textColor">@android:color/transparent</item>
+    </style>
+
+    <style name="TextAppearance.Article.Title" parent="TextAppearance.AppCompat.Display1" >
+        <item name="android:lineSpacingMultiplier">0.9</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textSize">@dimen/article_detail_big_title_text_size</item>
+    </style>
+
+    <style name="TextAppearance.Article.Body.Default"
+        parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">@color/dark_grey</item>
+    </style>
+
+    <style name="TextAppearance.Article.Body.Title"
+        parent="TextAppearance.AppCompat.Body1">
+        <item name="android:lineSpacingMultiplier">0.9</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+    </style>
+
+
+    <style name="TextAppearance.Article.Title.Small" parent="TextAppearance.Article.Body.Title" >
+        <item name="android:textColor">@color/white_80a</item>
+    </style>
+
+    <style name="TextAppearance.Article.Title.Small.Light"
+        parent="TextAppearance.Article.Body.Title" >
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+
+    <style name="TextAppearance.Article.List.Card.Title"
+        parent="TextAppearance.Article.Body.Title" >
+        <item name="android:textSize">@dimen/card_primary_text_size</item>
+        <item name="android:textColor">@color/darker_grey</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">4</item>
+    </style>
+
+    <style name="TextAppearance.Article.List.Card.Default"
+        parent="TextAppearance.Article.Body.Title" >
+        <item name="android:textColor">@color/light_grey</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">2</item>
+    </style>
+
 
 </resources>

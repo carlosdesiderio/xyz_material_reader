@@ -7,7 +7,7 @@ import java.net.URL;
 
 public class Config {
     public static final URL BASE_URL;
-    private static String TAG = Config.class.toString();
+    private static String TAG = Config.class.getSimpleName();
 
     static {
         URL url = null;
