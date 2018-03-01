@@ -1,11 +1,10 @@
 package com.example.xyzreader.ui;
 
 import android.database.Cursor;
-import android.support.v4.app.Fragment;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.Loader;
@@ -13,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,15 +34,15 @@ public class ArticleDetailFragment extends Fragment implements
     public static final String ARG_ITEM_ID = "item_id";
     public static final String LIST_TOP_PADDING = "\r\n";
 
-    private Cursor mCursor;
-    private long mItemId;
+    private Cursor cursor;
+    private long itemId;
 
-    private View mRootView;
+    private View rootView;
     private TextView titleTextView;
     private TextView dateTextView;
     private TextView authorTextView;
-    private ArticleAdapter bodyViewAdapter;
-    private ImageView mPhotoView;
+    private ArticleContentAdapter bodyViewAdapter;
+    private ImageView backdropImageView;
     private CollapsingToolbarLayout collapsingBar;
 
     private StringUtils stringUtils;
@@ -71,7 +69,7 @@ public class ArticleDetailFragment extends Fragment implements
         stringUtils = new StringUtils();
 
         if (getArguments() != null && getArguments().containsKey(ARG_ITEM_ID)) {
-            mItemId = getArguments().getLong(ARG_ITEM_ID);
+            itemId = getArguments().getLong(ARG_ITEM_ID);
         }
     }
 
@@ -94,18 +92,18 @@ public class ArticleDetailFragment extends Fragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_article_detail, container, false);
+        rootView = inflater.inflate(R.layout.fragment_article_detail, container, false);
 
-        mPhotoView = mRootView.findViewById(R.id.article_detail_bg_photo);
+        backdropImageView = rootView.findViewById(R.id.article_detail_bg_photo);
 
-        titleTextView = mRootView.findViewById(R.id.article_detail_big_title);
-        dateTextView = mRootView.findViewById(R.id.article_detail_date_text_field);
-        authorTextView = mRootView.findViewById(R.id.article_detail_author_text_field);
+        titleTextView = rootView.findViewById(R.id.article_detail_big_title);
+        dateTextView = rootView.findViewById(R.id.article_detail_date_text_field);
+        authorTextView = rootView.findViewById(R.id.article_detail_author_text_field);
 
-        RecyclerView bodyView = mRootView.findViewById(R.id.article_detail_recycler_view);
+        RecyclerView bodyView = rootView.findViewById(R.id.article_detail_recycler_view);
         bodyView.setHasFixedSize(true);
 
-        bodyViewAdapter = new ArticleAdapter();
+        bodyViewAdapter = new ArticleContentAdapter();
         LinearLayoutManager layoutManager = new LinearLayoutManager(
                 getActivity(),
                 LinearLayoutManager.VERTICAL,
@@ -113,9 +111,9 @@ public class ArticleDetailFragment extends Fragment implements
         bodyView.setLayoutManager(layoutManager);
         bodyView.setAdapter(bodyViewAdapter);
 
-        collapsingBar = mRootView.findViewById(R.id.article_detail_collapsing);
+        collapsingBar = rootView.findViewById(R.id.article_detail_collapsing);
 
-        final Toolbar toolbar = mRootView.findViewById(R.id.article_detail_toolbar);
+        final Toolbar toolbar = rootView.findViewById(R.id.article_detail_toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -129,41 +127,41 @@ public class ArticleDetailFragment extends Fragment implements
        // bodyView.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "Rosario-Regular.ttf"));
 
         setRootViewVisibility(View.GONE);
-        return mRootView;
+        return rootView;
     }
 
     /**
      * hides root view onCreateView then show it when data is available
      */
     private void setRootViewVisibility(int visibility) {
-        mRootView.setVisibility(visibility);
+        rootView.setVisibility(visibility);
     }
 
     private void bindViews() {
-        if(mRootView != null && mCursor != null) {
-            String title = mCursor.getString(ArticleLoader.Query.TITLE);
+        if(rootView != null && cursor != null) {
+            String title = cursor.getString(ArticleLoader.Query.TITLE);
             collapsingBar.setTitle(title);
             titleTextView.setText(title);
 
-            String authorString = mCursor.getString(ArticleLoader.Query.AUTHOR);
+            String authorString = cursor.getString(ArticleLoader.Query.AUTHOR);
             String dateString = stringUtils.getArticleDetailDateString(
-                    mCursor.getString(ArticleLoader.Query.PUBLISHED_DATE));
+                    cursor.getString(ArticleLoader.Query.PUBLISHED_DATE));
 
             dateTextView.setText(dateString);
             authorTextView.setText(authorString);
 
-            new ArticleFormattingAsyncTask().execute(mCursor.getString(ArticleLoader.Query.BODY));
+            new ArticleFormattingAsyncTask().execute(cursor.getString(ArticleLoader.Query.BODY));
 
             Picasso.with(getActivity())
-                    .load(mCursor.getString(ArticleLoader.Query.PHOTO_URL))
-                    .into(mPhotoView);
+                    .load(cursor.getString(ArticleLoader.Query.PHOTO_URL))
+                    .into(backdropImageView);
         }
 
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        return ArticleLoader.newInstanceForItemId(getActivity(), mItemId);
+        return ArticleLoader.newInstanceForItemId(getActivity(), itemId);
     }
 
     @Override
@@ -174,11 +172,11 @@ public class ArticleDetailFragment extends Fragment implements
             }
             return;
         }
-        mCursor = cursor;
+        this.cursor = cursor;
 
-        if (mCursor != null && !mCursor.moveToFirst()) {
-            mCursor.close();
-            mCursor = null;
+        if (this.cursor != null && !this.cursor.moveToFirst()) {
+            this.cursor.close();
+            this.cursor = null;
         }
 
         bindViews();
@@ -187,7 +185,7 @@ public class ArticleDetailFragment extends Fragment implements
 
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
-        mCursor = null;
+        cursor = null;
         bindViews();
     }
 

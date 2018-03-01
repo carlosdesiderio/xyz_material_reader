@@ -16,9 +16,9 @@ import com.example.xyzreader.R;
  * The article is shown as a list where each paragraphs is one element of the list.
  */
 
-public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ParagraphViewHolder> {
+public class ArticleContentAdapter extends RecyclerView.Adapter<ArticleContentAdapter.ParagraphViewHolder> {
 
-    private static final String TAG = ArticleAdapter.class.getSimpleName();
+    private static final String TAG = ArticleContentAdapter.class.getSimpleName();
 
     private String[] articleParagraphs;
 
