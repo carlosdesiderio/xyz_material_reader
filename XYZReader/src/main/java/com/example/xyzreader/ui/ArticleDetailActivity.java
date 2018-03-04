@@ -32,13 +32,11 @@ public class ArticleDetailActivity extends AppCompatActivity
     private static final String TAG = ArticleDetailActivity.class.getSimpleName();
 
     private Cursor mCursor;
-    // TODO: 28/02/2018 see if I can improve the logic around mStartId
-    private long mStartId;
+    private long initialArticleId;
 
     private ViewPager mPager;
     private MyPagerAdapter mPagerAdapter;
     private FloatingActionButton fab;
-    private View containerView;
 
 
     @Override
@@ -48,7 +46,7 @@ public class ArticleDetailActivity extends AppCompatActivity
 
         getSupportLoaderManager().initLoader(0, null, this);
 
-        containerView = findViewById(R.id.article_details_activity_root_view);
+        View containerView = findViewById(R.id.article_details_activity_root_view);
 
         mPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
         mPager = findViewById(R.id.article_detail_pager);
@@ -76,7 +74,7 @@ public class ArticleDetailActivity extends AppCompatActivity
 
         if (savedInstanceState == null) {
             if (getIntent() != null && getIntent().getData() != null) {
-                mStartId = ItemsContract.Items.getItemId(getIntent().getData());
+                initialArticleId = ItemsContract.Items.getItemId(getIntent().getData());
             }
         }
 
@@ -111,17 +109,17 @@ public class ArticleDetailActivity extends AppCompatActivity
         });
     }
 
-    private void setPagerPositionOnInit() {
-        if (mStartId > 0) {
+    private void setPagerCurrentItemOnInit() {
+        if (initialArticleId > 0) {
             mCursor.moveToFirst();
             do {
-                if (mStartId == mCursor.getLong(ArticleLoader.Query._ID)) {
+                if (initialArticleId == mCursor.getLong(ArticleLoader.Query._ID)) {
                     final int position = mCursor.getPosition();
                     mPager.setCurrentItem(position, false);
                     break;
                 }
             } while (mCursor.moveToNext());
-            mStartId = 0;
+            initialArticleId = 0;
         }
     }
 
@@ -135,7 +133,7 @@ public class ArticleDetailActivity extends AppCompatActivity
         mCursor = cursor;
         mPagerAdapter.notifyDataSetChanged();
 
-        setPagerPositionOnInit();
+        setPagerCurrentItemOnInit();
     }
 
     @Override
