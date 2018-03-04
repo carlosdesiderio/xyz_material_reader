@@ -1,6 +1,7 @@
 package com.example.xyzreader.ui;
 
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -122,10 +123,7 @@ public class ArticleDetailFragment extends Fragment implements
                 NavUtils.navigateUpFromSameTask(getActivity());
             }
         });
-
-        // TODO: 27/02/2018 see if that can be integrated otherwise delete
-       // bodyView.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "Rosario-Regular.ttf"));
-
+        
         setRootViewVisibility(View.GONE);
         return rootView;
     }
@@ -137,6 +135,7 @@ public class ArticleDetailFragment extends Fragment implements
         rootView.setVisibility(visibility);
     }
 
+    // TODO: 02/03/2018 set color of title bg base on pictures
     private void bindViews() {
         if(rootView != null && cursor != null) {
             String title = cursor.getString(ArticleLoader.Query.TITLE);
@@ -152,6 +151,7 @@ public class ArticleDetailFragment extends Fragment implements
 
             new ArticleFormattingAsyncTask().execute(cursor.getString(ArticleLoader.Query.BODY));
 
+            // TODO: 01/03/2018 default image empty_detail.png
             Picasso.with(getActivity())
                     .load(cursor.getString(ArticleLoader.Query.PHOTO_URL))
                     .into(backdropImageView);

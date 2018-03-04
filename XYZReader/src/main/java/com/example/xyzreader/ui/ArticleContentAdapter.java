@@ -1,5 +1,7 @@
 package com.example.xyzreader.ui;
 
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
@@ -54,8 +56,12 @@ public class ArticleContentAdapter extends RecyclerView.Adapter<ArticleContentAd
 
         public ParagraphViewHolder(View itemView) {
             super(itemView);
+            AssetManager assetManager = itemView.getResources().getAssets();
 
             paragraphTextView = itemView.findViewById(R.id.paragraph_text_view);
+            paragraphTextView.setTypeface(Typeface.createFromAsset(assetManager,
+                    "Rosario-Regular.ttf"));
+
         }
     }
 }
