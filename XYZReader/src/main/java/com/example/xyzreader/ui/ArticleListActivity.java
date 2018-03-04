@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -14,16 +15,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
 import com.example.xyzreader.data.UpdaterService;
 
+import uk.me.desiderio.popularmovies.network.ConnectivityUtils;
+import uk.me.desiderio.popularmovies.network.ConnectivityUtils.ConnectivityState;
+
 import static com.example.xyzreader.data.UpdaterService.BROADCAST_ACTION_STATE_CHANGE;
+import static uk.me.desiderio.popularmovies.network.ConnectivityUtils.CONNECTED;
+import static uk.me.desiderio.popularmovies.network.ConnectivityUtils.DISCONNECTED;
+import static uk.me.desiderio.popularmovies.view.ViewUtils.getSnackbar;
 
 /**
  * An activity representing a list of Articles. This activity has different presentations for
@@ -32,12 +39,32 @@ import static com.example.xyzreader.data.UpdaterService.BROADCAST_ACTION_STATE_C
  * activity presents a grid of items as cards.
  */
 public class ArticleListActivity extends AppCompatActivity implements
-        LoaderManager.LoaderCallbacks<Cursor> {
+        LoaderManager.LoaderCallbacks<Cursor>,
+        ConnectivityManager.OnNetworkActiveListener {
 
+    private View rootView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ArticleListAdapter articleListAdapter;
 
     private StringUtils stringUtils;
+    private ConnectivityManager connectivityManager;
+    /**
+     * update data refresh status
+     * we are only interested to know when data has ended loading
+     * in order to hide refresh layout loading bar
+     */
+    private BroadcastReceiver mRefreshingReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(BROADCAST_ACTION_STATE_CHANGE)) {
+                boolean isRefreshing = intent.getBooleanExtra(UpdaterService.EXTRA_REFRESHING,
+                        false);
+                if (!isRefreshing) {
+                    updateRefreshingUI(isRefreshing);
+                }
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +72,8 @@ public class ArticleListActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_article_list);
 
         stringUtils = new StringUtils();
+
+        rootView = findViewById(android.R.id.content);
 
         final Toolbar toolbar = findViewById(R.id.article_list_toolbar);
         setSupportActionBar(toolbar);
@@ -66,6 +95,9 @@ public class ArticleListActivity extends AppCompatActivity implements
         StaggeredGridLayoutManager sglm =
                 new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(sglm);
+
+        connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        connectivityManager.addDefaultNetworkActiveListener(this);
 
         getSupportLoaderManager().initLoader(0, null, this);
     }
@@ -94,16 +126,35 @@ public class ArticleListActivity extends AppCompatActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_refresh:
-               refreshData();
-               updateRefreshingUI(true);
+                refreshData();
+                updateRefreshingUI(true);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    @Override
+    public void onNetworkActive() {
+        showSnackBar(CONNECTED);
+    }
+
+    private void showSnackBar(@ConnectivityState int connectivityState) {
+        getSnackbar(connectivityState, rootView).show();
+    }
+
     private void refreshData() {
-        startService(new Intent(this, UpdaterService.class));
+        int isConnected = ConnectivityUtils.checkConnectivity(this);
+
+        switch (isConnected) {
+            case CONNECTED:
+                startService(new Intent(this, UpdaterService.class));
+                break;
+            case DISCONNECTED:
+                updateRefreshingUI(false);
+                showSnackBar(DISCONNECTED);
+                break;
+        }
     }
 
     private void updateRefreshingUI(boolean shouldShowRefresing) {
@@ -113,24 +164,6 @@ public class ArticleListActivity extends AppCompatActivity implements
     private boolean hasCursorData(Cursor cursor) {
         return cursor != null && cursor.getCount() > 0;
     }
-
-    /**
-     * update data refresh status
-     * we are only interested to know when data has ended loading
-     * in order to hide refresh layout loading bar
-     */
-    private BroadcastReceiver mRefreshingReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(BROADCAST_ACTION_STATE_CHANGE)) {
-                boolean isRefreshing = intent.getBooleanExtra(UpdaterService.EXTRA_REFRESHING,
-                        false);
-                if(!isRefreshing) {
-                    updateRefreshingUI(isRefreshing);
-                }
-            }
-        }
-    };
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
@@ -143,7 +176,7 @@ public class ArticleListActivity extends AppCompatActivity implements
         updateRefreshingUI(!hasCursorData(cursor));
 
         // load data if database doesn't return empty cursor
-        if(!hasCursorData(cursor)) {
+        if (!hasCursorData(cursor)) {
             refreshData();
         }
     }

@@ -36,7 +36,6 @@ public class UpdaterService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         Log.d(TAG, "rapa - onHandleIntent: ");
 
-        // TODO: 22/02/2018 add login to report connectivity issues
         ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo ni = cm.getActiveNetworkInfo();
         if (ni == null || !ni.isConnected()) {

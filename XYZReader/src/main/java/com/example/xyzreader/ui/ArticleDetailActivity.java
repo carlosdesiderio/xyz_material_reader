@@ -86,15 +86,17 @@ public class ArticleDetailActivity extends AppCompatActivity
             @Override
             public void onPageScrolled(int position,
                                        float positionOffset,
-                                       int positionOffsetPixels) { }
+                                       int positionOffsetPixels) {
+            }
 
             @Override
-            public void onPageSelected(int position) { }
+            public void onPageSelected(int position) {
+            }
 
             @Override
             public void onPageScrollStateChanged(int state) {
 
-                switch (state){
+                switch (state) {
                     case SCROLL_STATE_IDLE:
                         fab.show();
                         break;
