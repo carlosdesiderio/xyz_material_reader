@@ -1,6 +1,7 @@
 package com.example.xyzreader.ui;
 
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.app.ShareCompat;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -67,13 +69,15 @@ public class ArticleDetailActivity extends AppCompatActivity
                 int currentItemPos = mPager.getCurrentItem();
                 mCursor.moveToPosition(currentItemPos);
                 String name = mCursor.getString(ArticleLoader.Query.TITLE);
-                Snackbar.make(containerView, name, Snackbar.LENGTH_SHORT).show();
-                // TODO: 27/02/2018 implement sharing feature
-                // TODO: 27/02/2018 implement network awarenes feature
-                /*startActivity(Intent.createChooser(ShareCompat.IntentBuilder.from(getActivity())
+                String author = mCursor.getString(ArticleLoader.Query.AUTHOR);
+
+                startActivity(Intent.createChooser(ShareCompat.IntentBuilder.from
+                        (ArticleDetailActivity.this)
                         .setType("text/plain")
-                        .setText("Some sample text")
-                        .getIntent(), getString(R.string.action_share)));*/
+                        .setChooserTitle(name)
+                        .setSubject(name)
+                        .setText(getString(R.string.shared_article_message, author))
+                        .getIntent(), getString(R.string.action_share)));
             }
         });
 

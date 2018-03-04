@@ -5,4 +5,7 @@
     <string name="action_share">Share</string>
     <string name="action_refresh">Refresh</string>
 
+    <string name="shared_article_message">Check this article by %1$s at XYZ Reader app.
+        Available now.</string>
+
 </resources>
