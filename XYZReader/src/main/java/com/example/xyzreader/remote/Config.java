@@ -11,11 +11,13 @@ public class Config {
 
     static {
         URL url = null;
+        String urlString = "https://go.udacity.com/xyz-reader-json";
         try {
-            url = new URL("https://go.udacity.com/xyz-reader-json" );
+            url = new URL(urlString);
         } catch (MalformedURLException ignored) {
-            // TODO: throw a real error
-            Log.e(TAG, "Please check your internet connection.");
+            String msg = "Malformed URL String: " + urlString;
+            // throws a chained exception
+            throw new IllegalArgumentException(msg, ignored);
         }
 
         BASE_URL = url;
