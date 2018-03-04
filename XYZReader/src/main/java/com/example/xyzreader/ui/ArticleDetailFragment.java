@@ -1,7 +1,8 @@
 package com.example.xyzreader.ui;
 
 import android.database.Cursor;
-import android.graphics.Typeface;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -10,6 +11,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -22,6 +24,7 @@ import android.widget.TextView;
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 /**
  * A fragment representing a single Article detail screen. This fragment is
@@ -30,11 +33,9 @@ import com.squareup.picasso.Picasso;
  */
 public class ArticleDetailFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
-    private static final String TAG = "ArticleDetailFragment";
-
     public static final String ARG_ITEM_ID = "item_id";
     public static final String LIST_TOP_PADDING = "\r\n";
-
+    private static final String TAG = "ArticleDetailFragment";
     private Cursor cursor;
     private long itemId;
 
@@ -42,9 +43,11 @@ public class ArticleDetailFragment extends Fragment implements
     private TextView titleTextView;
     private TextView dateTextView;
     private TextView authorTextView;
-    private ArticleContentAdapter bodyViewAdapter;
     private ImageView backdropImageView;
+    private View articleTitleContainer;
     private CollapsingToolbarLayout collapsingBar;
+
+    private ArticleContentAdapter bodyViewAdapter;
 
     private StringUtils stringUtils;
 
@@ -92,7 +95,7 @@ public class ArticleDetailFragment extends Fragment implements
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_article_detail, container, false);
 
         backdropImageView = rootView.findViewById(R.id.article_detail_bg_photo);
@@ -100,6 +103,7 @@ public class ArticleDetailFragment extends Fragment implements
         titleTextView = rootView.findViewById(R.id.article_detail_big_title);
         dateTextView = rootView.findViewById(R.id.article_detail_date_text_field);
         authorTextView = rootView.findViewById(R.id.article_detail_author_text_field);
+        articleTitleContainer = rootView.findViewById(R.id.article_detail_title_container);
 
         RecyclerView bodyView = rootView.findViewById(R.id.article_detail_recycler_view);
         bodyView.setHasFixedSize(true);
@@ -123,7 +127,7 @@ public class ArticleDetailFragment extends Fragment implements
                 NavUtils.navigateUpFromSameTask(getActivity());
             }
         });
-        
+
         setRootViewVisibility(View.GONE);
         return rootView;
     }
@@ -135,9 +139,8 @@ public class ArticleDetailFragment extends Fragment implements
         rootView.setVisibility(visibility);
     }
 
-    // TODO: 02/03/2018 set color of title bg base on pictures
     private void bindViews() {
-        if(rootView != null && cursor != null) {
+        if (rootView != null && cursor != null) {
             String title = cursor.getString(ArticleLoader.Query.TITLE);
             collapsingBar.setTitle(title);
             titleTextView.setText(title);
@@ -149,14 +152,45 @@ public class ArticleDetailFragment extends Fragment implements
             dateTextView.setText(dateString);
             authorTextView.setText(authorString);
 
+
             new ArticleFormattingAsyncTask().execute(cursor.getString(ArticleLoader.Query.BODY));
 
-            // TODO: 01/03/2018 default image empty_detail.png
+            Target target = initTarget(backdropImageView, articleTitleContainer);
             Picasso.with(getActivity())
                     .load(cursor.getString(ArticleLoader.Query.PHOTO_URL))
-                    .into(backdropImageView);
+                    .error(R.drawable.empty_detail)
+                    .into(target);
         }
+    }
 
+    private int createPaletteSync(Bitmap bitmap) {
+        Palette p = Palette.from(bitmap).generate();
+        Palette.Swatch darkVibrant = p.getDarkVibrantSwatch();
+        if (darkVibrant != null) {
+            return darkVibrant.getRgb();
+        }
+        return getActivity().getResources().getColor(R.color.colorHeadingBackground);
+    }
+
+    private Target initTarget(final ImageView imageView, final View backgroudedView) {
+        return new Target() {
+            @Override
+            public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom from) {
+                //Set it in the ImageView
+                imageView.setImageBitmap(bitmap);
+
+                // Set title background colour based on the article image
+                backgroudedView.setBackgroundColor(createPaletteSync(bitmap));
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+            }
+        };
     }
 
     @Override
@@ -196,9 +230,9 @@ public class ArticleDetailFragment extends Fragment implements
     private class ArticleFormattingAsyncTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
-             return strings[0]
-                     .replaceAll("\\*([^\\*]*)\\*", "<i>$1</i>")
-                     .replaceAll("\\[([^]]+)\\]", "");
+            return strings[0]
+                    .replaceAll("\\*([^\\*]*)\\*", "<i>$1</i>")
+                    .replaceAll("\\[([^]]+)\\]", "");
         }
 
         @Override

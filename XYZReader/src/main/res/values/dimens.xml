@@ -25,12 +25,14 @@
     <dimen name="article_bottom_padding">4dp</dimen>
     <dimen name="fab_margin">24dp</dimen>
 
+    <dimen name="article_title_external_top_padding">8dp</dimen>
+    <dimen name="article_title_content_areas_between_padding">12dp</dimen>
+
+    <dimen name="article_detail_title_collapsed_margin_start">40dp</dimen>
+
     <!-- article list -->
     <!-- these margins are complimenting the 4dp card margin so to
          generate a vertical margin of 16dp and a horizontal margin of 8dp-->
     <dimen name="list_horizontal_margin">4dp</dimen>
     <dimen name="list_vertical_margin">12dp</dimen>
-    <dimen name="article_title_external_top_padding">8dp</dimen>
-    <dimen name="article_title_content_areas_between_padding">12dp</dimen>
-
 </resources>

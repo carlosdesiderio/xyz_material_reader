@@ -24,7 +24,7 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
     private Context context;
     private Cursor cursor;
 
-
+    // TODO: 02/03/2018 activity element animation
     public ArticleListAdapter(Context context) {
         this.stringUtils = new StringUtils();
         this.context = context;
@@ -62,15 +62,16 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
                 cursor.getString(ArticleLoader.Query.AUTHOR));
         holder.subtitleView.setText(detailsString);
 
-        Picasso.with(context).load(cursor.getString(ArticleLoader.Query
-                .THUMB_URL)).into(holder.thumbnailView);
+        Picasso.with(context)
+                .load(cursor.getString(ArticleLoader.Query.THUMB_URL))
+                .error(R.drawable.empty_detail)
+                .into(holder.thumbnailView);
         holder.thumbnailView.setAspectRatio(cursor.getFloat(ArticleLoader.Query.ASPECT_RATIO));
     }
 
-
     @Override
     public int getItemCount() {
-        if(cursor != null) {
+        if (cursor != null) {
             return cursor.getCount();
         }
         return 0;

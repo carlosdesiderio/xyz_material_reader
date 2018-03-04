@@ -14,7 +14,6 @@
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            <!-- TODO move dimens to resources -->
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/article_detail_collapsing"
             android:layout_width="match_parent"
@@ -22,8 +21,6 @@
             android:fitsSystemWindows="true"
             app:collapsedTitleTextAppearance="@style/TextAppearance.Article.Toolbar.Title"
             app:contentScrim="@color/colourPrimary"
-            app:expandedTitleMarginEnd="24dp"
-            app:expandedTitleMarginStart="0dp"
             app:expandedTitleTextAppearance="@style/TextAppearance.Article.Toolbar.Title.Transparent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
@@ -31,6 +28,7 @@
                 android:id="@+id/article_detail_bg_photo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@drawable/photo_background_protection"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"
@@ -54,27 +52,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingBottom="@dimen/article_bottom_padding"
-        android:paddingStart="@dimen/padding_horizontal_default"
         android:paddingEnd="@dimen/padding_horizontal_default"
+        android:paddingStart="@dimen/padding_horizontal_default"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <!-- TODO move dimens to resources -->
     <LinearLayout
+        android:id="@+id/article_detail_title_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@color/colorHeadingBackground"
         android:orientation="vertical"
         android:paddingTop="@dimen/article_title_external_top_padding"
-        app:collapsedTitleMarginStart="40dp"
+        app:collapsedTitleMarginStart="@dimen/article_detail_title_collapsed_margin_start"
         app:layout_behavior="com.example.xyzreader.ui.ArticleTitleBehaviour">
 
         <TextView
             android:id="@+id/article_detail_big_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/padding_horizontal_default"
             android:paddingEnd="@dimen/padding_horizontal_default"
+            android:paddingStart="@dimen/padding_horizontal_default"
             android:textAppearance="@style/TextAppearance.Article.Title" />
 
         <LinearLayout
@@ -83,8 +81,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingBottom="@dimen/article_title_content_areas_between_padding"
-            android:paddingStart="@dimen/padding_horizontal_default"
             android:paddingEnd="@dimen/padding_horizontal_default"
+            android:paddingStart="@dimen/padding_horizontal_default"
             android:paddingTop="8dp">
 
             <TextView
