@@ -13,12 +13,13 @@ import com.example.xyzreader.R;
 
 /**
  * RecyclerView adapter for the article
- * Due to the length, the article generates problems when set as a text of a TextView.
+ * Due to its length, the article generates problems when set as a text of a TextView.
  * In order to avoid this, the article is broken into paragraphs which are stored in a list.
  * The article is shown as a list where each paragraphs is one element of the list.
  */
 
-public class ArticleContentAdapter extends RecyclerView.Adapter<ArticleContentAdapter.ParagraphViewHolder> {
+public class ArticleContentAdapter
+        extends RecyclerView.Adapter<ArticleContentAdapter.ParagraphViewHolder> {
 
     private static final String TAG = ArticleContentAdapter.class.getSimpleName();
 
@@ -52,7 +53,7 @@ public class ArticleContentAdapter extends RecyclerView.Adapter<ArticleContentAd
     }
 
     public class ParagraphViewHolder extends ViewHolder {
-        public TextView paragraphTextView;
+        public final TextView paragraphTextView;
 
         public ParagraphViewHolder(View itemView) {
             super(itemView);

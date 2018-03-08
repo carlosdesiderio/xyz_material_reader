@@ -35,8 +35,7 @@ import static uk.me.desiderio.popularmovies.view.ViewUtils.getSnackbar;
 /**
  * An activity representing a list of Articles. This activity has different presentations for
  * handset and tablet-size devices. On handsets, the activity presents a list of items, which when
- * touched, lead to a {@link ArticleDetailActivity} representing item details. On tablets, the
- * activity presents a grid of items as cards.
+ * touched, lead to a {@link ArticleDetailActivity} representing item details.
  */
 public class ArticleListActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor>,
@@ -46,8 +45,6 @@ public class ArticleListActivity extends AppCompatActivity implements
     private SwipeRefreshLayout swipeRefreshLayout;
     private ArticleListAdapter articleListAdapter;
 
-    private StringUtils stringUtils;
-    private ConnectivityManager connectivityManager;
     /**
      * update data refresh status
      * we are only interested to know when data has ended loading
@@ -70,8 +67,6 @@ public class ArticleListActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_list);
-
-        stringUtils = new StringUtils();
 
         rootView = findViewById(android.R.id.content);
 
@@ -96,7 +91,8 @@ public class ArticleListActivity extends AppCompatActivity implements
                 new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(sglm);
 
-        connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         connectivityManager.addDefaultNetworkActiveListener(this);
 
         getSupportLoaderManager().initLoader(0, null, this);

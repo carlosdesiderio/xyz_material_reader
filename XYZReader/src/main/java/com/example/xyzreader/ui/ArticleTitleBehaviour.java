@@ -51,7 +51,9 @@ public class ArticleTitleBehaviour extends CoordinatorLayout.Behavior<ViewGroup>
     }
 
     @Override
-    public boolean onDependentViewChanged(CoordinatorLayout parent, ViewGroup child, View dependency) {
+    public boolean onDependentViewChanged(CoordinatorLayout parent,
+                                          ViewGroup child,
+                                          View dependency) {
         maybeInitChildViews(child);
         maybeInitProperties(child, dependency);
 
@@ -88,8 +90,7 @@ public class ArticleTitleBehaviour extends CoordinatorLayout.Behavior<ViewGroup>
 
         if (dependencyEndYPosition == 0) {
             Toolbar bar = dependency.findViewById(R.id.article_detail_toolbar);
-            int toolBarHeight = bar.getHeight();
-            dependencyEndYPosition = toolBarHeight;
+            dependencyEndYPosition = bar.getHeight();
         }
 
         if (maxScroll == 0) {

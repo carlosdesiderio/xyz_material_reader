@@ -3,4 +3,5 @@
     <item name="margin_start_percent" type="dimen" format="float">0.15</item>
     <item name="margin_end_percent" type="dimen" format="float">0.85</item>
     <integer name="list_column_count">3</integer>
+    <dimen name="article_detail_pane_elevation">2dp</dimen>
 </resources>

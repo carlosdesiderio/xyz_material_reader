@@ -24,7 +24,8 @@ import static android.support.v4.view.ViewPager.SCROLL_STATE_IDLE;
 import static android.support.v4.view.ViewPager.SCROLL_STATE_SETTLING;
 
 /**
- * An activity representing a single Article detail screen, letting you swipe between articles.
+ * An activity showing the article;s detail screen. The activity holds the set of articles that
+ * the user can see by swiping left or right between them
  */
 public class ArticleDetailActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {

@@ -10,6 +10,5 @@
 
     <string name="snackbar_connected_message">Connected to Internet. Retry Loading Movies</string>
     <string name="snackbar_no_connection_message">No Connection</string>
-    <string name="snackbar_button_label">Reload</string>
 
 </resources>

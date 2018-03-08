@@ -28,15 +28,12 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 /**
- * A fragment representing a single Article detail screen. This fragment is
- * either contained in a {@link ArticleListActivity} in two-pane mode (on
- * tablets) or a {@link ArticleDetailActivity} on handsets.
+ * A fragment representing a single article detail screen.
  */
 public class ArticleDetailFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
     public static final String ARG_ITEM_ID = "item_id";
     public static final String LIST_TOP_PADDING = "\r\n";
-    private static final String TAG = "ArticleDetailFragment";
     private Cursor cursor;
     private long itemId;
 
@@ -182,7 +179,6 @@ public class ArticleDetailFragment extends Fragment implements
         return new Target() {
             @Override
             public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom from) {
-                //Set it in the ImageView
                 imageView.setImageBitmap(bitmap);
 
                 // Set title background colour based on the article image
@@ -201,7 +197,8 @@ public class ArticleDetailFragment extends Fragment implements
 
     /**
      * This code was taken from StackOverFlow ticket
-     * https://stackoverflow.com/questions/31662416/show-collapsingtoolbarlayout-title-only-when-collapsed
+     * [https://stackoverflow.com/
+     * questions/31662416/show-collapsingtoolbarlayout-title-only-when-collapsed]
      */
     public AppBarLayout.OnOffsetChangedListener getOnOffsetChangedListener() {
         return new AppBarLayout.OnOffsetChangedListener() {

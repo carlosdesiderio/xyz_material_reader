@@ -18,10 +18,11 @@ import com.squareup.picasso.Picasso;
  * Adapter for the {@link ArticleListActivity} article list
  */
 
-public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.ArticleListViewHolder> {
+public class ArticleListAdapter
+        extends RecyclerView.Adapter<ArticleListAdapter.ArticleListViewHolder> {
 
-    private StringUtils stringUtils;
-    private Context context;
+    private final StringUtils stringUtils;
+    private final Context context;
     private Cursor cursor;
 
     public ArticleListAdapter(Context context) {
@@ -38,8 +39,9 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
 
     @Override
     public ArticleListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_article, parent,
-                false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_article,
+                                                                     parent,
+                                                                     false);
         final ArticleListViewHolder vh = new ArticleListViewHolder(view);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,9 +84,9 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
     }
 
     public static class ArticleListViewHolder extends RecyclerView.ViewHolder {
-        public DynamicHeightNetworkImageView thumbnailView;
-        public TextView titleView;
-        public TextView subtitleView;
+        public final DynamicHeightNetworkImageView thumbnailView;
+        public final TextView titleView;
+        public final TextView subtitleView;
 
         public ArticleListViewHolder(View itemView) {
             super(itemView);

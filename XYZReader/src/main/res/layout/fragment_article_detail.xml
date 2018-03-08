@@ -110,7 +110,8 @@
             android:background="@color/colorHeadingBackground"
             android:paddingTop="@dimen/article_title_external_top_padding"
             app:layout_constraintLeft_toLeftOf="@id/title_left_guideline"
-            app:layout_constraintRight_toRightOf="@id/title_right_guideline">
+            app:layout_constraintRight_toRightOf="@id/title_right_guideline"
+            android:elevation="@dimen/article_detail_pane_elevation">
 
             <TextView
                 android:id="@+id/article_detail_big_title"

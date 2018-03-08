@@ -9,7 +9,7 @@ import android.support.annotation.NonNull;
 public class StringUtils {
 
 
-    private XyzDateUtils dateUtils;
+    private final XyzDateUtils dateUtils;
 
     public StringUtils() {
         this.dateUtils = new XyzDateUtils();
