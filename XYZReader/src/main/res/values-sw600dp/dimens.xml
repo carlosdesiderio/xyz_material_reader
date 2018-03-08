@@ -1,4 +1,9 @@
 <resources>
+    <dimen name="padding_horizontal_default">64dp</dimen>
 
+    <dimen name="card_margin">8dp</dimen>
+    <dimen name="list_horizontal_margin">48dp</dimen>
+
+    <dimen name="article_detail_title_collapsed_margin_start">0dp</dimen>
 
 </resources>

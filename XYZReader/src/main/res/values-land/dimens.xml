@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_horizontal_default">112dp</dimen>
+    <dimen name="article_detail_title_collapsed_margin_start">0dp</dimen>
+    <dimen name="article_detail_appbar_height">200dp</dimen>
+</resources>

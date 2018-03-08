@@ -47,62 +47,108 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/article_detail_recycler_view"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/article_bottom_padding"
-        android:paddingEnd="@dimen/padding_horizontal_default"
-        android:paddingStart="@dimen/padding_horizontal_default"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:background="@color/colorBackground"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <LinearLayout
-        android:id="@+id/article_detail_title_container"
+        <android.support.constraint.Guideline
+            android:id="@+id/left_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="@dimen/margin_start_percent" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/right_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="@dimen/margin_end_percent" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/article_detail_recycler_view"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorCardBackground"
+            android:paddingBottom="@dimen/article_bottom_padding"
+            android:paddingEnd="@dimen/padding_horizontal_default"
+            android:paddingStart="@dimen/padding_horizontal_default"
+            app:layout_constraintLeft_toLeftOf="@id/left_guideline"
+            app:layout_constraintRight_toRightOf="@id/right_guideline" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@color/colorHeadingBackground"
-        android:orientation="vertical"
-        android:paddingTop="@dimen/article_title_external_top_padding"
         app:collapsedTitleMarginStart="@dimen/article_detail_title_collapsed_margin_start"
         app:layout_behavior="com.example.xyzreader.ui.ArticleTitleBehaviour">
 
-        <TextView
-            android:id="@+id/article_detail_big_title"
-            android:layout_width="match_parent"
+        <android.support.constraint.Guideline
+            android:id="@+id/title_left_guideline"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingEnd="@dimen/padding_horizontal_default"
-            android:paddingStart="@dimen/padding_horizontal_default"
-            android:textAppearance="@style/TextAppearance.Article.Title" />
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="@dimen/margin_start_percent" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/title_right_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="@dimen/margin_end_percent" />
+
 
         <LinearLayout
-            android:id="@+id/article_detail_small_title_container"
-            android:layout_width="match_parent"
+            android:id="@+id/article_detail_title_container"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/article_title_content_areas_between_padding"
-            android:paddingEnd="@dimen/padding_horizontal_default"
-            android:paddingStart="@dimen/padding_horizontal_default"
-            android:paddingTop="8dp">
+            android:layout_gravity="bottom"
+            android:orientation="vertical"
+            android:background="@color/colorHeadingBackground"
+            android:paddingTop="@dimen/article_title_external_top_padding"
+            app:layout_constraintLeft_toLeftOf="@id/title_left_guideline"
+            app:layout_constraintRight_toRightOf="@id/title_right_guideline">
 
             <TextView
-                android:id="@+id/article_detail_date_text_field"
-                android:layout_width="wrap_content"
+                android:id="@+id/article_detail_big_title"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.Article.Title.Small" />
+                android:paddingEnd="@dimen/padding_horizontal_default"
+                android:paddingStart="@dimen/padding_horizontal_default"
+                android:textAppearance="@style/TextAppearance.Article.Title" />
 
-            <TextView
-                android:id="@+id/article_detail_author_text_field"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/article_detail_small_title_container"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.Article.Title.Small.Light" />
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/article_title_content_areas_between_padding"
+                android:paddingEnd="@dimen/padding_horizontal_default"
+                android:paddingStart="@dimen/padding_horizontal_default"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:id="@+id/article_detail_date_text_field"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.Article.Title.Small" />
+
+                <TextView
+                    android:id="@+id/article_detail_author_text_field"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.Article.Title.Small.Light" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/orange_ruler_height"
+                android:background="@color/colourAccent" />
+
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/orange_ruler_height"
-            android:background="@color/colourAccent" />
-
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.design.widget.CoordinatorLayout>

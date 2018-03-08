@@ -24,7 +24,6 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
     private Context context;
     private Cursor cursor;
 
-    // TODO: 02/03/2018 activity element animation
     public ArticleListAdapter(Context context) {
         this.stringUtils = new StringUtils();
         this.context = context;

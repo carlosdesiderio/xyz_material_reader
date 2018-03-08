@@ -26,8 +26,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/card_content_areas_between_padding"
-            android:paddingLeft="@dimen/padding_horizontal_default"
-            android:paddingRight="@dimen/padding_horizontal_default"
+            android:paddingLeft="@dimen/card_padding_horizontal_default"
+            android:paddingRight="@dimen/card_padding_horizontal_default"
             android:paddingTop="@dimen/card_external_top_bottom_padding"
             android:textAppearance="@style/TextAppearance.Article.List.Card.Title" />
 
@@ -36,8 +36,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/card_external_top_bottom_padding"
-            android:paddingLeft="@dimen/padding_horizontal_default"
-            android:paddingRight="@dimen/padding_horizontal_default"
+            android:paddingLeft="@dimen/card_padding_horizontal_default"
+            android:paddingRight="@dimen/card_padding_horizontal_default"
             android:textAppearance="@style/TextAppearance.Article.List.Card.Default" />
 
         <View

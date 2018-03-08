@@ -19,7 +19,7 @@ import com.example.xyzreader.R;
 public class ArticleTitleBehaviour extends CoordinatorLayout.Behavior<ViewGroup> {
     private static final String TAG = ArticleTitleBehaviour.class.getSimpleName();
 
-    private static final float ALPHA_FACTOR = 1.5f;
+    private static final float ALPHA_FACTOR = 1f;
 
     private TextView bigTitle;
 
@@ -29,6 +29,7 @@ public class ArticleTitleBehaviour extends CoordinatorLayout.Behavior<ViewGroup>
     private int childViewOffset;
     private float bigTitleY;
     private int maxScroll;
+
 
 
     public ArticleTitleBehaviour(Context context, AttributeSet attrs) {

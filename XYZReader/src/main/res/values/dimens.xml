@@ -15,11 +15,15 @@
     <!-- card -->
     <dimen name="card_external_top_bottom_padding">24dp</dimen>
     <dimen name="card_content_areas_between_padding">8dp</dimen>
+    <dimen name="card_padding_horizontal_default">16dp</dimen>
 
     <dimen name="card_margin">4dp</dimen>
 
 
     <!-- details view -->
+    <item name="margin_start_percent" type="dimen" format="float">0</item>
+    <item name="margin_end_percent" type="dimen" format="float">1</item>
+
     <dimen name="article_detail_appbar_height">300dp</dimen>
     <dimen name="fab_elevation">2dp</dimen>
     <dimen name="article_bottom_padding">4dp</dimen>

@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -50,6 +51,8 @@ public class ArticleDetailFragment extends Fragment implements
     private ArticleContentAdapter bodyViewAdapter;
 
     private StringUtils stringUtils;
+
+    private String title;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -118,6 +121,9 @@ public class ArticleDetailFragment extends Fragment implements
 
         collapsingBar = rootView.findViewById(R.id.article_detail_collapsing);
 
+        AppBarLayout appBarLayout = rootView.findViewById(R.id.article_detail_appbar);
+        appBarLayout.addOnOffsetChangedListener(getOnOffsetChangedListener());
+
         final Toolbar toolbar = rootView.findViewById(R.id.article_detail_toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -141,7 +147,7 @@ public class ArticleDetailFragment extends Fragment implements
 
     private void bindViews() {
         if (rootView != null && cursor != null) {
-            String title = cursor.getString(ArticleLoader.Query.TITLE);
+            title = cursor.getString(ArticleLoader.Query.TITLE);
             collapsingBar.setTitle(title);
             titleTextView.setText(title);
 
@@ -189,6 +195,31 @@ public class ArticleDetailFragment extends Fragment implements
 
             @Override
             public void onBitmapFailed(Drawable errorDrawable) {
+            }
+        };
+    }
+
+    /**
+     * This code was taken from StackOverFlow ticket
+     * https://stackoverflow.com/questions/31662416/show-collapsingtoolbarlayout-title-only-when-collapsed
+     */
+    public AppBarLayout.OnOffsetChangedListener getOnOffsetChangedListener() {
+        return new AppBarLayout.OnOffsetChangedListener() {
+            int scrollRange = -1;
+            boolean isShow = true;
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+
+                if (scrollRange == -1) {
+                    scrollRange = appBarLayout.getTotalScrollRange();
+                }
+                if (scrollRange + verticalOffset == 0) {
+                    collapsingBar.setTitle(title);
+                    isShow = true;
+                } else if(isShow) {
+                    collapsingBar.setTitle(" ");
+                    isShow = false;
+                }
             }
         };
     }
