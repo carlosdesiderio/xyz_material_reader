@@ -17,7 +17,7 @@ The app is using the Design Support library and its provided widgets:
 
 Full rubric can be found [here](https://review.udacity.com/#!/rubrics/63/view)
 
-####The main areas for improvement are:
+#### The main areas for improvement are:
  * **Duplicated behaviours**: the app had many customised views to provided UI behaviours already 
  defined by the Android Framework. The aim of this project is to remove all redundant code and 
  use the Material Design Library components
@@ -41,7 +41,7 @@ As a requirement, this project is written using only Java.
 
 ## UI
 The application follows the master-detail view pattern consisting of two views: Main and Detail view
-###Main View
+### Main View
 The
 [CoordinatorLayout](https://developer.android.com/reference/android/support/design/widget/CoordinatorLayout.html) 
 is used as the root view. The layout facilitates a custom toolbar animation. 
@@ -63,7 +63,7 @@ is also shown when the connection is restablish.
 is used to display the article list. The list is reflowed and displayed with different 
 number of column based on the screen dimensions. 
 
-###Detail view
+### Detail view
 The activity shows the article's detail view. The activity uses a 
 [ViewPager](https://developer.android.com/reference/android/support/v4/view/ViewPager.html) 
 in order to show the set of articles that the user can see by swiping left or right between them
@@ -93,22 +93,22 @@ The button stay on screen as its action remains the same across screens followin
 
 The app specifies elevations for app bars, FABs, and other elements following the Material Design specification. 
 
-###Design
-######Theme
+### Design
+###### Theme
 A theme is defined for the app which extends the Theme.AppCompat.Light.NoActionBar. The theme sets
  the colour scheme.
-######Color
+###### Color
 The colour scheme was created based on the colour of the launch button which was provided with 
 the initial code. Its orange shade is used as the accent colour. The 
 primary colours are a range of teal shades that contrast with the accent colour.
 
 Colours are defined in the style.xml file 
-######Layout
+###### Layout
 Margin and padding in the app follow recommendations from the material.io guidelines.
-######Images
+###### Images
 Images are high quality and specific to each article. These images provided as part of the 
 article feed. Picasso is used for the loading of this images. All images in the app are displayed full-bleed.
-######Fonts
+###### Fonts
 The app uses two fonts which are complementary and allow the user to concentrate in the content: 
 * Rosario-Regular for main content text
 * Roboto Condensed
