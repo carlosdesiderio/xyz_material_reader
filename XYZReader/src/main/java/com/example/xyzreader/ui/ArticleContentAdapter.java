@@ -4,6 +4,7 @@ import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,7 @@ public class ArticleContentAdapter
     @Override
     public void onBindViewHolder(ParagraphViewHolder holder, int position) {
         String paragraph = articleParagraphs[position];
-        holder.paragraphTextView.setText(paragraph);
+        holder.paragraphTextView.setText(Html.fromHtml(paragraph));
     }
 
     @Override

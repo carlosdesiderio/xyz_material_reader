@@ -25,7 +25,7 @@
     <item name="margin_end_percent" type="dimen" format="float">1</item>
 
     <dimen name="article_detail_appbar_height">300dp</dimen>
-    <dimen name="fab_elevation">2dp</dimen>
+    <dimen name="fab_elevation">6dp</dimen>
     <dimen name="article_detail_pane_elevation">0dp</dimen>
     <dimen name="article_bottom_padding">4dp</dimen>
     <dimen name="fab_margin">24dp</dimen>

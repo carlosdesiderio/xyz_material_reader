@@ -18,9 +18,9 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:colorPrimary">@color/colourPrimary</item>
-        <item name="android:colorPrimaryDark">@color/colourPrimaryDark</item>
-        <item name="android:colorAccent">@color/colourAccent</item>
+        <item name="colorPrimary">@color/colourPrimary</item>
+        <item name="colorPrimaryDark">@color/colourPrimaryDark</item>
+        <item name="colorAccent">@color/colourAccent</item>
     </style>
 
     <style name="TextAppearance.Article.Toolbar.Title" parent="TextAppearance.Article.Title" >

@@ -57,7 +57,7 @@ be triggered from the option menu.
 The user is prompted with a message about the connection state when he try to refresh the content
 and a connection is not available. A 
 [SnackBar](https://developer.android.com/reference/android/support/design/widget/Snackbar.html)
-is also shown when the connection is restablish.
+is also shown when the connection is re-establish.
 
 [RecyclerView](https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html) 
 is used to display the article list. The list is reflowed and displayed with different 
@@ -66,7 +66,10 @@ number of column based on the screen dimensions.
 ### Detail view
 The activity shows the article's detail view. The activity uses a 
 [ViewPager](https://developer.android.com/reference/android/support/v4/view/ViewPager.html) 
-in order to show the set of articles that the user can see by swiping left or right between them
+in order to show the set of articles that the user can see by swiping left or right between them. 
+It provides an implementation of the
+[ViewPager.PageTransformer](https://developer.android.com/reference/android/support/v4/view/ViewPager.PageTransformer.html)
+ interface to provide a custom ViewPager Fragment animation.
 
 The
 [CoordinatorLayout](https://developer.android.com/reference/android/support/design/widget/CoordinatorLayout.html) 

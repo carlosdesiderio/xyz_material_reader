@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
@@ -166,13 +167,21 @@ public class ArticleDetailFragment extends Fragment implements
         }
     }
 
-    private int createPaletteSync(Bitmap bitmap) {
-        Palette p = Palette.from(bitmap).generate();
-        Palette.Swatch darkVibrant = p.getDarkVibrantSwatch();
-        if (darkVibrant != null) {
-            return darkVibrant.getRgb();
-        }
-        return getActivity().getResources().getColor(R.color.colorHeadingBackground);
+    private void setBackgroundColourByPalette(final View view, Bitmap bitmap) {
+        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+            @Override
+            public void onGenerated(Palette p) {
+                @ColorInt int color = getActivity().getResources().
+                        getColor(R.color.colorHeadingBackground);
+
+                Palette.Swatch darkVibrant = p.getDarkVibrantSwatch();
+
+                if (darkVibrant != null) {
+                    color = darkVibrant.getRgb();
+                }
+                view.setBackgroundColor(color);
+            }
+        });
     }
 
     private Target initTarget(final ImageView imageView, final View backgroudedView) {
@@ -182,7 +191,8 @@ public class ArticleDetailFragment extends Fragment implements
                 imageView.setImageBitmap(bitmap);
 
                 // Set title background colour based on the article image
-                backgroudedView.setBackgroundColor(createPaletteSync(bitmap));
+                setBackgroundColourByPalette(backgroudedView, bitmap);
+//                backgroudedView.setBackgroundColor(createPaletteSync(bitmap));
             }
 
             @Override

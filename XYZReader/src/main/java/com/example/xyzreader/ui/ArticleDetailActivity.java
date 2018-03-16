@@ -36,6 +36,7 @@ public class ArticleDetailActivity extends AppCompatActivity
     private long initialArticleId;
 
     private ViewPager mPager;
+    private MyPagerAdapterTransformer adapterTransformer;
     private MyPagerAdapter mPagerAdapter;
     private FloatingActionButton fab;
 
@@ -50,7 +51,10 @@ public class ArticleDetailActivity extends AppCompatActivity
         View containerView = findViewById(R.id.article_details_activity_root_view);
 
         mPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
+        adapterTransformer = new MyPagerAdapterTransformer();
         mPager = findViewById(R.id.article_detail_pager);
+        mPager.setPageTransformer(false,
+                                  adapterTransformer);
         mPager.setAdapter(mPagerAdapter);
 
         fab = findViewById(R.id.article_detail_share_fab);
@@ -157,6 +161,22 @@ public class ArticleDetailActivity extends AppCompatActivity
         @Override
         public int getCount() {
             return (mCursor != null) ? mCursor.getCount() : 0;
+        }
+    }
+
+    private class MyPagerAdapterTransformer implements ViewPager.PageTransformer {
+
+        @Override
+        public void transformPage(View view, float position) {
+            if(position > -1 && position < 1 ) {
+                int pageWidth = view.getWidth();
+
+                View imageView = view.findViewById(R.id.article_detail_bg_photo);
+                float alpha = Math.min((1 - Math.abs(position)) + 0.3f, 1);
+                view.setAlpha(alpha);
+
+                imageView.setTranslationX(-position * (pageWidth / 2)); //Half the normal speed
+            }
         }
     }
 }
