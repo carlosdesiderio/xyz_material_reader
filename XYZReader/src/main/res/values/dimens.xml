@@ -16,6 +16,8 @@
     <dimen name="card_external_top_bottom_padding">24dp</dimen>
     <dimen name="card_content_areas_between_padding">8dp</dimen>
     <dimen name="card_padding_horizontal_default">16dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+    <dimen name="card_elevation_max_elevation">8dp</dimen>
 
     <dimen name="card_margin">4dp</dimen>
 
@@ -29,6 +31,8 @@
     <dimen name="article_detail_pane_elevation">0dp</dimen>
     <dimen name="article_bottom_padding">4dp</dimen>
     <dimen name="fab_margin">24dp</dimen>
+    <dimen name="fab_elevation">6dp</dimen>
+    <dimen name="fab_elevation_tranlationZ">6dp</dimen>
 
     <dimen name="article_title_external_top_padding">8dp</dimen>
     <dimen name="article_title_content_areas_between_padding">12dp</dimen>

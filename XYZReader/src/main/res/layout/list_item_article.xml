@@ -1,7 +1,10 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/card_margin"
+    app:cardElevation="@dimen/card_elevation"
+    app:cardMaxElevation="@dimen/card_elevation_max_elevation"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?selectableItemBackground">
